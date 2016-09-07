@@ -1,0 +1,20 @@
+include header
+body
+  div(class="container")
+    div(id="login_box" class="row")
+      div(id="login_screen" class="row")
+        div(id="login_icon" class="col-md-2 col-md-offset-2")
+          img(class="img-responsive" src="web/img/icon.jpg" alt="Welcome to Da Vinci Code")
+          h4 Welcome to <small>Da Vinci Code</small>
+        div(id="login_form" class="col-md-6 login-form")
+          form(role="form" action="/login" method="post")
+            div(class="input-group")
+              span(class="input-group-addon fui-user")
+              input(id="username" name="username" type="text" class="form-control flat" placeholder="Username")
+            div(class="input-group")
+              span(class="input-group-addon fui-lock")
+              input(id="password" name="password" type="password" class="form-control flat" placeholder="Password")
+            input(type="submit" class="btn btn-primary btn-large btn-block" value="Login / Signup")
+            a(id="forget" class="login-link", href="#") Forget password?
+            p(class="p-warning") #{error_message}
+include footer

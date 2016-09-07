@@ -1,0 +1,16 @@
+include header
+body
+  div(class="container")
+    div(id="hall_icon" class="row")
+      div(class="col-md-2 col-md-offset-2")
+        img(class="img-responsive" src="web/img/icon.jpg" alt="Welcome to Da Vinci Code")
+      div(id="hall_title" class="col-md-6") Da Vinci Code
+    div(id="hall_user" class="row") Welcome <a id="username" href="/logout" title="click to logout">#{login_user}</a>, <span id="hall_info">please choose your opponent</span>.
+    form(id="hall_go" action="/play" method="post")
+      input(id="hall_target" type="hidden" name="target")
+    div(id="hall_users" class="row")
+      each ready_user in ready_users
+        if ready_user != login_user
+          div(class="col-md-3")
+            button(class="btn btn-primary btn-hg btn-block" onclick="hall_socket.makePair('#{ready_user}')") #{ready_user}
+include footer

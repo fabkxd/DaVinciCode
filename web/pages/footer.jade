@@ -1,0 +1,10 @@
+script(src="web/js/vendor/jquery.min.js")
+script(src="web/js/flat-ui.min.js")
+if page == 'Hall'
+	script(src="web/js/socket.io.js")
+	script(src="web/js/hall.js")
+else if page == 'Play'
+	script(src="web/js/socket.io.js")
+	script(src="web/js/play.js")
+else
+	script(src="web/js/dvc.js")

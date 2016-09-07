@@ -1,0 +1,124 @@
+body {
+	background-color: #fcf8e3;
+}
+body.error {
+	background-color: #1abc9c;
+	color: #f5f5f5;
+}
+div#login_box {
+	background-image: url("../img/login/imac.png");
+	background-size: 100% 100%;
+	margin-top: 30px;
+	color: white;
+}
+div#login_screen {
+	background-color: #1abc9c;
+	margin: 3.5% 4% 27%;
+}
+div#login_icon {
+	margin-top: 16%;
+}
+div#login_icon h4 {
+    font-size: 17px;
+    font-weight: 200;
+    line-height: 34px;
+    opacity: 0.95;
+}
+div#login_icon h4 small {
+    color: inherit;
+    display: block;
+    font-size: inherit;
+    font-weight: 700;
+}
+div#login_form {
+	margin-top: 16%;
+	margin-bottom: 19%;
+	padding-bottom: 0px;
+}
+div#login_form>div>input {
+	background-color: #edeff1;
+}
+div#login_form span.input-group-addon {
+	border: 2px solid #1abc9c;
+	background-color: #1abc9c;
+}
+div#login_form p {
+	color: #e74c3c;
+	font-size: 14px;
+	margin-bottom: 3px;
+}
+div#hall_icon {
+	background-color: #1abc9c;
+	padding: 20px;
+}
+div#hall_title {
+	font-size: 70px;
+	color: white;
+	margin-top: 30px;
+}
+div#hall_user {
+	margin-top: 20px;
+	font-size: 22px;
+}
+div#hall_users {
+	margin-top: 10px;
+}
+div#hall_users>div {
+	padding: 0px;
+}
+div#hall_users>div>button {
+	padding: 25px 20px;
+}
+div#play_container {
+	width: 1200px;
+	margin: auto;
+	margin-top: 30px;
+}
+div#play_header {
+	font-size: 22px;
+}
+div#play_header span.username {
+	color: #f0ad4e;
+}
+div#play_chat {
+	width: 450px;
+	float: left;
+}
+div#play_chat_box {
+	margin-top: 30px;
+	width: 450px;
+	height: 550px;
+	overflow-y: scroll;
+}
+textarea#play_chat_text {
+	margin-top: 10px;
+	background-color: #fcf8e3;
+	resize: none;
+}
+div.play_chat_message {
+	width: auto;
+	display: inline-block !important;
+	display: inline;
+	max-width: 450px;
+	min-height: 46px;
+	margin-top: 3px;
+	padding: 8px 20px;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+div.message_mine {
+	background-color: #1abc9c;
+	color: white;
+}
+div.message_syst {
+	background-color: #f1c40f;
+	color: white;
+}
+div#play_game {
+	width: 500px;
+	float: left;
+}
+div#play_operation {
+	width: 250px;
+	float: left;
+}
