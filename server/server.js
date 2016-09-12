@@ -48,35 +48,43 @@ io.on('connection', function(socket) {
 				} else {
 					var target = all_sockets[res];
 					if (target) {
-						target.emit('play_control', false);
+						target.emit('connetion_break', false);
 	    				redis_client.del('play_pair:' + socket.username);
 					}
 				}			
 			});
 		}
 	});
-	socket.on('makePair', function(type, target) {
-		all_sockets[target].emit('makePair', type, socket.username);
+	socket.on('make_pair', function(type, target) {
+		all_sockets[target].emit('make_pair', type, socket.username);
 	});
 	socket.on('play_ready', function(source, target) {
-		all_sockets[source] = socket;
-		socket.page = 'Play';
-		socket.username = source;
-		redis_client.set('play_pair:' + source, target);
-		redis_client.get('play_pair:' + target, function(err, res) {
+		redis_client.get('play_pair:' + source, function(err, res) {
 			if (err) {
 				utils.error(err);
-			} else if (res == source) {
-				utils.debug('game ready: ' + source + " and " + target);
-				var game = new Game();
-				game.init(source, target);
-				socket.emit('play_control', true);
-				socket.emit('play_message', 'message_syst', 'connected!');
-				socket.emit('play_game', game);
-				all_sockets[target].emit('play_message', 'message_syst', 'connected!');
-				all_sockets[target].emit('play_control', true);
-				all_sockets[target].emit('play_game', game);
-			}			
+			} else if (res == target) {
+				redis_client.del('play_pair:' + target);
+			} else {
+				all_sockets[source] = socket;
+				socket.page = 'Play';
+				socket.username = source;
+				redis_client.set('play_pair:' + source, target);
+				redis_client.get('play_pair:' + target, function(err2, res2) {
+					if (err2) {
+						utils.error(err2);
+					} else if (res2 == source) {
+						utils.debug('game ready: ' + source + " and " + target);
+						var game = new Game();
+						game.init(source, target);
+						socket.emit('play_message', 'message_syst', 'new game starts!');
+						socket.emit('play_message', 'message_syst', source + 'goes first.');
+						socket.emit('play_game', game);
+						all_sockets[target].emit('play_message', 'message_syst', 'new game starts!');
+						all_sockets[target].emit('play_message', 'message_syst', source + 'goes first.');
+						all_sockets[target].emit('play_game', game);
+					}			
+				});
+			}	
 		});
 	});
 	socket.on('play_message', function(content) {
@@ -87,6 +95,46 @@ io.on('connection', function(socket) {
 				var target = all_sockets[res];
 				if (target) {
 					target.emit('play_message', 'message_oppo', content);
+				}
+			}			
+		});
+	});
+	socket.on('play_game', function(game) {
+		redis_client.get('play_pair:' + socket.username, function(err, res) {
+			if (err) {
+				utils.error(err);
+			} else {
+				var target = all_sockets[res];
+				if (target) {
+					var info = socket.username + ' ends and it\'s ' + res + '\'s turn now.';
+					socket.emit('play_message', 'message_syst', info);
+					target.emit('play_message', 'message_syst', info);
+					target.emit('play_game', game);
+				}
+			}			
+		});
+	});
+	socket.on('click_card', function(selected, type) {
+		redis_client.get('play_pair:' + socket.username, function(err, res) {
+			if (err) {
+				utils.error(err);
+			} else {
+				var target = all_sockets[res];
+				if (target) {
+					target.emit('click_card', selected, type);
+				}
+			}			
+		});
+	});
+	socket.on('guess', function(number, color, right) {
+		redis_client.get('play_pair:' + socket.username, function(err, res) {
+			if (err) {
+				utils.error(err);
+			} else {
+				var target = all_sockets[res];
+				if (target) {			
+					var info = socket.username + ' guess ' + (color ? 'white ' : 'black ') + number + ' and it\'s ' + right + '!';
+					target.emit('play_message', 'message_syst', info);
 				}
 			}			
 		});

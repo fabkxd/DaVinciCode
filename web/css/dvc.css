@@ -115,10 +115,72 @@ div.message_syst {
 	color: white;
 }
 div#play_game {
-	width: 500px;
+	width: 750px;
 	float: left;
 }
-div#play_operation {
-	width: 250px;
+div#card_oppo {
+	width: 750px;
+	height: 100px;
+	margin-top: 25px;
+}
+div#play_info {
+	width: 750px;
+	height: 50px;
+	font-size: 25px;
+	margin-top: 15px;
+}
+div#play_info>span {
+	font-size: 30px;
+	color: #e74c3c;
+}
+div#play_deck {
+	width: 750px;
+	height: 205px;
+	margin-top: 45px;
+}
+div#card_syst {
 	float: left;
+	width: 515px;
+	height: 205px;
+}
+button#play_button {
+	float: left;
+	width: 190px;
+	height: 190px;
+	margin-top: 5px;
+	font-size: 50px;
+	margin-left: 45px;
+}
+div#card_syst1 {
+	width: 750px;
+	height: 100px;
+}
+div#card_syst2 {
+	width: 750px;
+	height: 100px;
+}
+div#card_mine {
+	width: 750px;
+	height: 300px;
+	margin-top: 45px;
+}
+div#play_game button.card {
+	width: 53px;
+	height: 90px;
+	float: left;
+	padding: 0px;
+	margin-top: 5px;
+	margin-right: 4px;
+	font-size: 30px;
+	text-align: center;
+}
+div#play_game div.white {
+	background-color: #bdc3c7;
+}
+div#play_game div.black {
+	background-color: #34495e;
+	color: #bdc3c7;
+}
+div#card_mine>button.back {
+	margin-top: 50px;
 }

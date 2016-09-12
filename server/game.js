@@ -1,60 +1,67 @@
 var Card = function(color, number) {
 	this.color = color;
 	this.number = number;
+	this.status = false;
 }
 var Game = function() {
+	this.cards = new Array();
 	this.player = {};
 	this.system = new Array();
-	this.status = false;
+	this.start = true;
+	this.last = -1;
 }
 Game.prototype = {
 	init: function(player1, player2) {
-		var cards = new Array();
+		this.first = player1;
 		for (var i = 0; i < 13; i++) {
-			cards.push(new Card(true, i));
-			cards.push(new Card(false, i));
+			this.cards.push(new Card(true, i));
+			this.cards.push(new Card(false, i));
 		}
-		console.log(cards);
-		cards = this.shuffle(cards);
-		console.log(cards);
+		this.shuffle();
 		this.player[player1] = new Array();
 		this.player[player2] = new Array();
-		for (var card in cards) {
-			if (card.color) {
+		for (var i in this.cards) {
+			if (this.cards[i].color) {
 				if (this.player[player1].length < 2) {
-					this.player[player1].push(card);
+					this.player[player1].push(i);
 				} else if (this.player[player2].length < 2) {
-					this.player[player2].push(card);
+					this.player[player2].push(i);
 				} else {
-					this.system.push(card);
+					this.system.push(i);
 				}
 			}
 		}
-		for (var card in cards) {
-			if (!card.color) {
+		for (var i in this.cards) {
+			if (!this.cards[i].color) {
 				if (this.player[player1].length < 4) {
-					this.player[player1].push(card);
+					this.player[player1].push(i);
 				} else if (this.player[player2].length < 4) {
-					this.player[player2].push(card);
+					this.player[player2].push(i);
 				} else {
-					this.system.push(card);
+					this.system.push(i);
 				}
 			}
 		}
-		this.player[player1].sort(this.sortOrder);
-		this.player[player2].sort(this.sortOrder);
+		that = this;
+		this.player[player1].sort(function(a, b) {
+			var ca = that.cards[a];
+			var cb = that.cards[b];
+			return ca.number == cb.number ? cb.color - ca.color : cb.number - ca.number;
+		});
+		this.player[player2].sort(function(a, b) {
+			var ca = that.cards[a];
+			var cb = that.cards[b];
+			return ca.number == cb.number ? cb.color - ca.color : cb.number - ca.number;
+		});
 	},
-	shuffle: function(cards) {
-		for (var i = cards.length - 1; i > 0; i--) {
+	shuffle: function() {
+		for (var i = this.cards.length - 1; i >= 0; i--) {
 			var j = parseInt(Math.random() * i);
-			var tp = cards[i];
-			cards[i] = cards[j];
-			cards[j] = tp;
-			cards[i].id = i;
+			var tp = this.cards[i];
+			this.cards[i] = this.cards[j];
+			this.cards[j] = tp;
+			this.cards[i].id = i;
 		}
-	},
-	sortOrder: function(a, b) {
-		return a.number == b.number ? b.color - a.color : b.number - a.number;
 	}
 }
 module.exports = Game;

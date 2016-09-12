@@ -13,14 +13,14 @@ HallSocket.prototype = {
     	this.socket.on('ready_users', function(ready_users) {
 		    that.display(ready_users);
 		});
-        this.socket.on('makePair', function(type, tar) {
+        this.socket.on('make_pair', function(type, tar) {
             if (type == 'req') {
                 if (that.target == null && confirm(tar + ' ask for playing with you, agree or not?')) {
-                    that.socket.emit('makePair', 'res', tar);
+                    that.socket.emit('make_pair', 'res', tar);
                     $('input#hall_target').val(tar);
                     $('form#hall_go').submit();
                 } else {
-                    that.socket.emit('makePair', 'ref', tar);
+                    that.socket.emit('make_pair', 'ref', tar);
                 }
             } else if (type == 'res' && tar == that.target) {
                 $('input#hall_target').val(tar);
@@ -44,7 +44,7 @@ HallSocket.prototype = {
     makePair: function(tar) {
         if (this.target != tar && confirm('sure to choose ' + tar + ' as opponent?')) {    
             $('div#hall_users>div>button').addClass('disabled');
-            this.socket.emit('makePair', 'req', tar);
+            this.socket.emit('make_pair', 'req', tar);
             this.target = tar;
             $('span#hall_info').text('wait ' + tar + ' to respond');
             setTimeout(function() {

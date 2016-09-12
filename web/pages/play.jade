@@ -4,7 +4,14 @@ body
 		div(id="play_header") hello <span id="username" class="username">#{username}</span>, your opponent <span id="target" class="username">#{target}</span> <span id="target_info">is offline</span>, click <a href="/hall" title="quit this game">quit</a> to leave.
 		div(id="play_chat")
 			div(id="play_chat_box")
-			textarea(id="play_chat_text" name="message" class="form-control flat play_control" rows="6" maxlength=140 placeholder="type your message here..." disabled=true)
+			textarea(id="play_chat_text" name="message" class="form-control flat" rows="6" maxlength=140 placeholder="type your message here..." disabled=true)
 		div(id="play_game")
-		div(id="play_operation")
+			div(id="card_oppo")
+			div(id="play_info")
+			div(id="play_deck")
+				div(id="card_syst")
+					div(id="card_syst1")
+					div(id="card_syst2")
+				button(id="play_button" class="btn btn-hg btn-primary btn-block" onclick="play_socket.clickPlayButton()" disabled) END
+			div(id="card_mine")
 include footer
