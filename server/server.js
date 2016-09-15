@@ -48,7 +48,7 @@ io.on('connection', function(socket) {
 				} else {
 					var target = all_sockets[res];
 					if (target) {
-						target.emit('connetion_break', false);
+						target.emit('connetion_break');
 	    				redis_client.del('play_pair:' + socket.username);
 					}
 				}			
